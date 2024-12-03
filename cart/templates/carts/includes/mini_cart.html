@@ -1,0 +1,76 @@
+{% load static %}
+{% load carts_tags %}
+{#                    <div class="site-cart">#}
+{#                    	<a href="#" class="site-header__cart" title="Корзина">#}
+{#                        	<i class="icon anm anm-bag-l"></i>#}
+{#                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">{{ cart.total_quantity }}</span>#}
+{#                        </a>#}
+                        <!--Миникорзина добавление-->
+{#                        <div id="header-cart" class="block block-cart">#}
+                        	<ul class="mini-products-list">
+                            {% if not carts %}
+                                <span style="display: block;text-align: center; font-size: 15px"> Ваша корзина пуста 🛒</span>
+                            {% endif %} 
+                                {% for cart in carts %}
+                                <li class="item cart-item">
+                                	<a class="product-image" href="{{ cart.product_variant.product.get_absolute_url }}">
+                                    	<img src="{{ cart.product_variant.product.main_image.image.url }}" alt="{{ cart.product_variant.product.title }}" title="" />
+                                    </a>
+                                    <div class="product-details" >
+
+                                <a href="{% url 'cart:cart_remove' %}" data-cart-id="{{ cart.id }}" class="remove cart__remove">
+                                <i class="anm anm-times-l" aria-hidden="true" title="Удалить товар"></i>
+                                </a>
+
+
+                                <a class="pName" href="{{ cart.product_variant.product.get_absolute_url }}">
+                                    {{ cart.product_variant.product.title }}
+                                </a>
+
+                                <div class="variant-cart">
+                                    Цвет: {{ cart.product_variant.color }} / Размер: {{ cart.product_variant.size }}
+                                </div>
+
+                                <div class="wrapQtyBtn">
+                                    <div class="qtyField">
+                                        <span class="label">Количество: </span>
+
+                                       <!-- Кнопка уменьшения количества -->
+                                    <button type="button" style="height: 41px" class="qtyBtn minus" data-cart-change-url="{% url 'cart:cart_change' %}" data-cart-id="{{ cart.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa anm anm-minus-r" aria-hidden="true"></i>
+                                    </button>
+
+                                    <!-- Поле для ввода количества -->
+                                    <input type="number" style="width: 42px; padding:10px 6px; height:42px; border-radius:0; float: left;"
+                                           id="form1" name="quantity" value="{{ cart.quantity }}" class="product-form__input"
+                                     data-available-stock="{{ cart.product_variant.stock }}" min="1" max="{{ cart.product_variant.stock }}">
+
+                                    <!-- Кнопка увеличения количества -->
+                                    <button type="button" style="height: 41px" class="qtyBtn plus" data-cart-change-url="{% url 'cart:cart_change' %}" data-cart-id="{{ cart.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa anm anm-plus-r" aria-hidden="true"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                                        <div class="priceRow">
+                                        	<div class="product-price">
+                                            	<span class="money">{{ cart.product_variant.sell_price }} рублей</span>
+                                            </div>
+                                         </div>
+									</div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="total">
+                            	<div class="total-in">
+                                	<span class="label">Общая сумма:</span><span class="product-price"><span class="money" id="total-price-summary">{{ carts.total_price }}</span> рублей</span>
+                                </div>
+                                 <div class="buttonSet text-center">
+                                    <a href="{% url 'user:user_cart_page' %}" class="btn btn-secondary btn--small">Корзина</a>
+                                    <a href="checkout.html" class="btn btn-secondary btn--small">Оформить</a>
+                                </div>
+                            </div>
+{#                        </div>#}
+                        <!--End Minicart Popup-->
+{#                    </div>#}

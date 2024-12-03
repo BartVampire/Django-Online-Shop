@@ -1,0 +1,75 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static "css/login/login.css" %}">
+<link rel="stylesheet" href="{% static "css/registration/register.css" %}">
+<link rel="stylesheet" href="{% static 'css/shake.css' %}">
+
+<div class="breadcrumb"><a href="{% url "shop:main_page" %}">
+    <h3 style="font-weight: 500"><span class="gentle-tilt-move-shake">Главная страница</span></h3></a>
+</div>
+
+<div class="open active">Создать аккаунт</div>
+<div class="modal hidden">
+  <div class="form">
+    <form method="post" action="{% url 'user:registration_page' %}">
+      {% csrf_token %}
+      <label for="id_last_name">Фамилия</label>
+      <input style="font-size: 11pt" id="id_last_name" value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
+             name="last_name" type="text" placeholder="Введите вашу фамилию" autofocus/>
+        {% if form.last_name.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+        {% endif %} 
+
+      <label for="id_first_name">Имя</label>
+      <input style="font-size: 11pt" id="id_first_name" value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+             name="first_name" type="text" placeholder="Введите ваше имя"/>
+     {% if form.first_name.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+        {% endif %} 
+        
+      <label for="id_username">Имя пользователя</label>
+      <input style="font-size: 11pt" id="id_username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+             name="username" required type="text" placeholder="Введите ваше имя пользователя"/>
+     {% if form.username.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+        {% endif %} 
+
+      <label for="id_phone_number">Номер телефона</label>
+      <input style="font-size: 11pt" id="id_phone_number" value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
+             name="phone_number" required type="text" placeholder="+79XXXXXXXXX"/>
+        {% if form.phone_number.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.phone_number.errors }}</div>
+        {% endif %} 
+    
+      <label for="id_email">Электронная почта</label>
+      <input style="font-size: 11pt" id="id_email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+             name="email" type="email" placeholder="Введите адрес электронной почты" required/>
+        {% if form.email.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+        {% endif %} 
+
+      <label for="id_password1">Пароль</label>
+      <input style="font-size: 11pt" id="id_password1" name="password1" type="password" required placeholder="Введите пароль"/> 
+        {% if form.password1.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.password1.errors }}</div>
+        {% endif %} 
+    
+      <label for="id_password2">Подтвердите пароль</label>
+      <input style="font-size: 11pt" id="id_password2" name="password2" type="password" required placeholder="Подтвердите пароль"/>
+        {% if form.password2.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{ form.password2.errors }}</div>
+        {% endif %}
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </div>
+  <div class="invite">
+{#    <h3>Регистрация</h3>#}
+    <div class="close" title="Закрыть"></div>
+  </div>
+</div>
+
+
+<script src="{% static "js/jQueryv3.7.1.js" %}"></script>
+<script src="{% static 'js/registration/register.js' %}"></script>
+

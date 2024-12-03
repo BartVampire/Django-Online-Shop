@@ -1,0 +1,442 @@
+  body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+}
+
+  * {
+  box-sizing: border-box;
+}
+
+  .achievement * {
+  box-sizing: border-box;
+}
+
+  .achievement {
+  position: fixed;
+  pointer-events: none;
+  width: 100%;
+  bottom: 16px;
+  z-index: 100;
+}
+
+  @keyframes rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(360deg);
+  }   
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+  @keyframes scale_circle_1 {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  2% {
+    opacity: 1;
+  }
+  5% {
+    transform: scale3d(1, 1, 1);
+    opacity: 0.8;
+  }
+  6% {
+    opacity: 0;
+  }
+  9% {
+    opacity: 0;
+  }
+  10% {
+    transform: scale3d(1, 1, 1);
+    opacity: 0;
+  }
+  90% {
+    transform: scale3d(0, 0, 0);
+  }
+  92% {
+    opacity: 1;
+  }
+  95% {
+    transform: scale3d(1, 1, 1);
+    opacity: 0.8;
+  }
+  96% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    opacity: 0;
+  }
+}
+
+  @keyframes circle_grow_move {
+  1% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  4% {
+    transform: scale(1.1);
+  }
+  5% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  11% {
+    transform: translate(0);
+    background-color: #39960C;
+  }
+  24% {
+    transform: translateX(-140px);
+    background-color: #42ae0e;
+  }
+  85% {
+    transform: translateX(-140px);
+    background-color: #42ae0e;
+  }
+  89% {
+    transform: translateX(0);
+    background-color: #39960C;
+  }
+  94% {
+    transform: scale(1);
+  }
+  96% {
+    transform: scale(1.1);
+  }
+  98% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+
+  @keyframes trophy_animate_opacity {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  24% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+  @keyframes xbox_animate_opacity {
+  0% {
+    opacity: 1;
+  }
+  19% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+  23% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+  @keyframes banner-animate {
+  0% {
+    width: 75px;
+    opacity: 0;
+  }
+  2% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  11% {
+    width: 75px;
+  }
+  24% {
+    width: 355px;
+  }
+  85% {
+    width: 355px;
+  }
+  89% {
+    width: 75px;
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+  @keyframes textSlide {
+  0% {
+    transform: translateY(85px);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(85px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  79% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  84% {
+    transform: translateY(-115px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+  .animation {
+  width: 355px;
+  height: 110px;
+  padding: 5px 0px 5px 0px;
+  position: relative;
+  margin: auto;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+  .circle.circle_animate {
+  animation: circle_grow_move;
+  animation-duration: 10.5s;
+  transform-origin: center;
+}
+
+  .circle.circle_animate::before {
+  animation: scale_circle_1;
+  animation-duration: 10.5s;
+  transform-origin: center;
+  animation-iteration-count: 2;
+}
+
+  .circle.circle_animate::after {
+  animation: scale_circle_1;
+  animation-duration: 10.5s;
+  animation-delay: 0.1s;
+  transform-origin: center;
+}
+
+  .circle.circle_animate .trophy_animate {
+  animation: trophy_animate_opacity;
+  animation-duration: 10.5s;
+}
+
+  .circle.circle_animate .xbox_img {
+  animation: xbox_animate_opacity;
+  animation-duration: 10.5s;
+  z-index: 102;
+}
+
+  .circle {
+  width: 75px;
+  height: 75px;
+  top: 0;
+  opacity: 0;
+  margin: 0 auto;
+  border-radius: 100%;
+  background: #39960C;
+  position: relative;
+  overflow: hidden;
+  z-index: 4;
+}
+
+  .circle::before {
+  content: "";
+  opacity: 0;
+  width: 75px;
+  height: 75px;
+  background-color: #40a90e;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  display: block;
+}
+
+  .circle::after {
+  content: "";
+  opacity: 0;
+  width: 75px;
+  height: 75px;
+  background-color: #32830a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  display: block;
+}
+
+  .circle .img {
+  height: 50%;
+  left: 25%;
+  top: 25%;
+  position: absolute;
+  z-index: 100;
+}
+
+  .circle .img img {
+  height: 100%;
+  position: absolute;
+}
+
+  .circle .trophy_1 {
+  animation: rotate;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+  .achieve_disp_animate {
+  animation: textSlide;
+  animation-duration: 10.5s;
+}
+
+  .banner {
+  width: 355px;
+  height: 75px;
+  position: relative;
+  left: 0;
+  opacity: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  right: 0;
+  margin: 0 auto;
+  background: #39960C;
+  overflow: hidden;
+  border-radius: 100px;
+}
+
+  .banner-outer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 100%;
+  top: -75px;
+  position: relative;
+}
+
+  .banner.banner-animate {
+  animation: banner-animate;
+  animation-duration: 10.5s;
+}
+
+  .achieve_disp {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 60%;
+  position: absolute;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-left: 95px;
+  left: 0;
+  height: 100%;
+  top: 0;
+}
+
+  .achieve_disp .score_disp {
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: 0 !important;
+}
+
+  .achieve_disp .achiev_name {
+   border: none;
+  outline: none;
+  background: none;
+  font-size: 10pt; /* Уменьшаем размер шрифта с 13pt до 11pt */
+  color: white;
+  line-height: 1.2; /* Уменьшаем межстрочный интервал */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Показываем максимум 2 строки */
+  -webkit-box-orient: vertical;
+  max-height: 2.4em; /* Максимальная высота для двух строк */
+  word-wrap: break-word; /* Разрешаем перенос слов */
+  white-space: normal; /* Разрешаем перенос на новую строку */
+}
+
+  .acheive_score {
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+}
+
+  .unlocked {
+  width: 100%;
+  color: white;
+  font-weight: 400;
+}
+
+  .gamerscore {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 24px;
+}
+
+  .xbox_span {
+    color: white !important;
+    padding: unset !important;
+    font-size: 9pt !important;
+    display: unset !important;
+    text-align: center !important;
+    line-height: 1.3 !important; 
+
+}

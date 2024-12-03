@@ -1,0 +1,41 @@
+{% load static %}
+
+
+<style>
+        /* Инлайн-стили для предзагрузки */
+        #preloader {
+            background-color: #161417;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            z-index: 99; /* Один из z-index был лишним */
+            margin-top: 0;
+            top: 0;
+        }
+        #loading-center {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        #loading-center-absolute {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+ <!-- Предзагрузка -->
+        <div id="preloader">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <img src="{% static "img/icon/preloader.svg" %}" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- конец предзагрузки -->
+
+ <!-- JS здесь -->
+    <script src="{% static "js/vendor/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>

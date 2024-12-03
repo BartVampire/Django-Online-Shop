@@ -1,0 +1,272 @@
+{% extends 'index.html' %}
+{% load products_tags %}
+{% load static %}
+{% block title %}
+	Страница товаров
+{% endblock %}
+
+{% block main %}
+    <!--Body Content-->
+    <div id="page-content">
+    	<!--Collection Banner-->
+    	<div class="collection-header">
+			<div class="collection-hero">
+        		<div class="collection-hero__image"><img class="blur-up lazyload" data-src="{% static "images/cat-women2.jpg" %}" src="{% static "images/cat-women2.jpg" %}" alt="Women" title="Women" /></div>
+        		<div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width">Список товаров</h1></div>
+      		</div>
+		</div>
+        <!--End Collection Banner-->
+        
+        <div class="container-fluid">
+        	<div class="row" style="margin-top: 15px">
+            	<!--Sidebar-->
+            	<div class="col-12 col-sm-12 col-md-3 col-lg-2 sidebar filterbar">
+                	<div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
+                	<div class="sidebar_tags">
+                    	<!--Categories-->
+                    	<div class="sidebar_widget categories filter-widget">
+                            <div class="widget-title"><h2>Категории</h2></div>
+                            <div class="widget-content">
+                                <ul class="sidebar_categories">
+                                    {% for category in categories %}
+
+                                    <li class="level1 sub-level"><a href="#" class="site-nav">{{ category.name }}</a>
+                                        <ul class="sublinks">
+                                        {% for obj in category.children.all %}
+                                            {% if obj %}
+                                        	<li class="level2"><a href="{{ obj.get_absolute_url }}" class="site-nav">{{ obj.name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </li>
+                                      {% endfor %}
+{#                                    <li class="lvl-1"><a href="#;" class="site-nav">Shoes</a></li>#}
+{#                                    <li class="lvl-1"><a href="#;" class="site-nav">Accessories</a></li>#}
+{#                                    <li class="lvl-1"><a href="#;" class="site-nav">Collections</a></li>#}
+{#                                    <li class="lvl-1"><a href="#;" class="site-nav">Sale</a></li>#}
+{#                                    <li class="lvl-1"><a href="#;" class="site-nav">Page</a></li>#}
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Categories-->
+                 <!--Price Filter-->
+
+                <!-- Price Filter -->
+<form action="{% url 'shop:products_list' %}" method="get">
+    <!-- Price Filter -->
+    <div class="sidebar_widget filterBox filter-widget">
+        <div class="widget-title">
+            <h2>Цена</h2>
+        </div>
+        <div>
+        <span class="filter__arrow">Минимальная цена</span>
+        {{ filterset.form.min_price }}
+        <span class="filter__arrow">Максимальная цена</span>
+        {{ filterset.form.max_price }}
+        </div>
+    </div>
+
+     <!-- Brand Filter -->
+    <div class="sidebar_widget filterBox filter-widget">
+        <div class="widget-title">
+            <h2>Бренд</h2>
+        </div>
+        <ul>
+            {% for brand_slug, brand_name in brands %}
+                <li>
+                    <input type="checkbox" value="{{ brand_slug }}" id="brand_{{ brand_slug }}" name="brand" multiple {% if brand_slug in selected_brands %}checked{% endif %}>
+                    <label for="brand_{{ brand_slug }}"><span><span></span></span>{{ brand_name }}</label>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="row">
+        <div class="col-6 text-right margin-25px-top">
+            <button class="btn btn-secondary btn--small" style="padding: 10px 60px; margin-top: -15px" type="submit">Применить фильтры</button>
+        </div>
+    </div>
+</form>
+                        <!--End Brand-->
+                        <!--Popular Products-->
+						<div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Популярные товары</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                            <a class="grid-view-item__link" href="#">
+                                                <img class="grid-view-item__image" src="{% static "images/product-images/mini-product-img.jpg" %}" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Cena Skirt</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$173.60</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="{% static "images/product-images/mini-product-img1.jpg" %}" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Block Button Up</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$378.00</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="assets/images/product-images/mini-product-img2.jpg" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Balda Button Pant</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$278.60</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="assets/images/product-images/mini-product-img3.jpg" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Border Dress in Black/Silver</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$228.00</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                        <!--End Popular Products-->
+                        <!--Banner-->
+                        <div class="sidebar_widget static-banner">
+                        	<img src="{% static "images/side-banner-2.jpg" %}" alt="" />
+                        </div>
+                        <!--Banner-->
+                        <!--Information-->
+                        <div class="sidebar_widget">
+                            <div class="widget-title"><h2>Информация</h2></div>
+                            <div class="widget-content"><p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p></div>
+                        </div>
+                        <!--end Information-->
+                       
+                    </div>
+                </div>
+                <!--End Sidebar-->
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-9 col-lg-10 main-col">
+                	<div class="productList">
+                    	<!--Toolbar-->
+                        <button type="button" class="btn btn-filter d-block d-md-none d-lg-none">Фильтрация</button>
+                    	<div class="toolbar">
+                        	<div class="filters-toolbar-wrapper">
+                            	<div class="row">
+                                	<div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-start align-items-center">
+{#                                    	<a href="shop-left-sidebar.html" title="Grid View" class="change-view change-view--active">#}
+{#                                        	<img src="{% static "images/grid.jpg" %}" alt="Grid" />#}
+{#                                        </a>#}
+{#                                        <a href="shop-listview.html" title="List View" class="change-view">#}
+{#                                        	<img src="{% static "images/list.jpg" %}" alt="List" />#}
+{#                                        </a>#}
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
+                                    	<span class="filters-toolbar__product-count">Showing: 22</span>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 text-right">
+                                    	<div class="filters-toolbar__item">
+                                      		<label for="SortBy" class="hidden">Сортировка</label>
+                                      		<select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                                                <option value="title-ascending" selected="selected">Sort</option>
+                                                <option>Большинство продаж</option>
+                                                <option>По алфавиту, A-Z</option>
+                                                <option>По алфавиту, Z-A</option>
+                                                <option>Цена, low to high</option>
+                                                <option>Цена, high to low</option>
+                                                <option>Дата, new to old</option>
+                                                <option>Дата, old to new</option>
+                                      		</select>
+                                      		<input class="collection-header__default-sort" type="hidden" value="manual">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Toolbar-->
+                        <div class="grid-products grid--view-items">
+                            <div class="row">
+                                {% for new_product in products_list %}
+                                <div class="col-6 col-sm-6 col-md-4 col-lg-3 grid-view-item style2 item">
+                                	<div class="grid-view_image">
+                                        <!-- start product image -->
+                                        <a href="product-accordion.html" class="grid-view-item__link">
+                                            <!-- image -->
+                                            <img class="grid-view-item__image primary blur-up lazyload" data-src="{{ new_product.main_image.image.url }}" src="{{ new_product.main_image.image.url }}" alt="image" title="product">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="grid-view-item__image hover blur-up lazyload" data-src="{{ new_product.main_image.image.url }}" src="{{ new_product.main_image.image.url }}" alt="image" title="product">
+                                            <!-- End hover image -->
+                                            <!-- product label -->
+{#                                            <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span class="lbl pr-label1">new</span></div>#}
+                                            <!-- End product label -->
+                                        </a>
+                                        <!-- end product image -->
+                                        
+                                        <!--start product details -->
+                                        <div class="product-details hoverDetails text-center mobile">
+                                            <!-- product name -->
+                                            <div class="product-name">
+                                                <a href="{{ new_product.get_absolute_url }}">{{ new_product.title }}</a>
+                                            </div>
+                                            <!-- End product name -->
+                                            <!-- product price -->
+                                            <div class="product-price">
+                                                {% if new_product.variants.first.discount != 0 %}
+                                                	<span class="old-price">{{  new_product.variants.first.price}}</span>
+                                                {% endif %}
+                                                <span class="price">{{ new_product.variants.first.sell_price }} руб.</span>
+                                            </div>
+                                            <!-- End product price -->
+{#                                            <div class="product-review">#}
+{#                                                <i class="font-13 fa fa-star"></i>#}
+{#                                                <i class="font-13 fa fa-star"></i>#}
+{#                                                <i class="font-13 fa fa-star"></i>#}
+{#                                                <i class="font-13 fa fa-star-o"></i>#}
+{#                                                <i class="font-13 fa fa-star-o"></i>#}
+{#                                            </div>#}
+                                            <!-- product button -->
+                                            <div class="button-set">
+                                                <a href="#content_quickview" title="Quick View" class="quick-view-popup quick-view" tabindex="0">
+                                                	<i class="icon anm anm-search-plus-r"></i>
+                                            	</a>
+                                                <!-- Start product button -->
+                                                <form action="#" method="post">
+                                                    <button class="btn btn--secondary cartIcon btn-addto-cart" type="button"><i class="icon anm anm-bag-l"></i></button>
+                                                </form>
+                                                <div class="wishlist-btn">
+                                                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
+                                                        <i class="icon anm anm-heart-l"></i>
+                                                    </a>
+                                                </div>
+{#                                                <div class="compare-btn">#}
+{#                                                    <a class="compare add-to-compare" href="compare.html" title="Add to Compare">#}
+{#                                                        <i class="icon anm anm-random-r"></i>#}
+{#                                                    </a>#}
+{#                                                </div>#}
+                                            </div>
+                                            <!-- end product button -->
+                                        </div>
+                                        <!-- End product details -->
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                </div>  
+                            	</div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Main Content-->
+            </div>
+        </div>
+    
+    <!--End Body Content-->
+    
+{% endblock %}

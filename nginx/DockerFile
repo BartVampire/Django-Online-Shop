@@ -1,0 +1,5 @@
+# Dockerfile for Nginx
+FROM nginx:alpine
+
+# Копируем наш файл конфигурации в контейнер Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf

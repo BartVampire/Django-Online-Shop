@@ -1,0 +1,36 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/notifications/xbox_notifications.scss' %}">
+ 
+<div class="notification-container">
+    <div class="achievement">
+        <div class="animation">
+            <div class="circle">
+                <div class="img trophy_animate trophy_img">
+                    <img class="trophy_1" src="{% static 'img/notifications/trophy_full.svg' %}"/>
+                    <img class="trophy_2" src="{% static 'img/notifications/trophy_no_handles.svg'%}">
+                </div>
+                <div class="img xbox_img">
+                    <img src="{% static 'img/notifications/xbox.svg'%}"/>
+                </div>
+            </div>
+            <div class="banner-outer">
+                <div class="banner">
+                    <div class="achieve_disp">
+                        <span class="unlocked xbox_span" style="font-size: 10pt !important;">Достижение разблокировано:</span>
+                        <div class="score_disp">
+{#                            <div class="gamerscore">#}
+{#                                <img width="20px" src="{% static 'img/notifications/G.svg'%}"/>#}
+{#                                <span class="acheive_score">99</span>#}
+{#                            </div>#}
+                            <span class="achiev_name xbox_span" style="font-weight: bold">
+                               {{ message }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/Notifications/xbox_notifications.js' %}"></script>

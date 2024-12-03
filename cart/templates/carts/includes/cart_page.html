@@ -1,0 +1,170 @@
+{% load static %}
+    <!--Body Content-->
+    <div id="page-content" style="margin-top: 87px;">
+    	<!--Page Title-->
+    	<div class="page section-header text-center">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Это ... моя корзина</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                	{% if carts.total_price > 10000 %}
+                    <div class="alert alert-success text-uppercase" role="alert">
+						<i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Поздравляем!</strong> Вы получаете бесплатную доставку !
+					</div>
+                    {% endif %}
+                	<form action="#" method="post" class="cart style2">
+                		<table>
+                            <thead class="cart__row cart__header">
+                                <tr>
+                                    <th colspan="2" class="text-center">Товар</th>
+                                    <th class="text-center">Цена</th>
+                                    <th class="text-center">Количество</th>
+                                    <th class="text-right">Всего</th>
+                                    <th class="action">&nbsp;</th>
+                                </tr>
+                            </thead>
+                    		<tbody>
+                            {% if not carts %} <tr> <td colspan="6"> <h3 style="display: block;text-align: center;background-color: ghostwhite;height: 31px;font-size: 21px;">Ваша корзина пуста 🙅</h3> </td> </tr> {% endif %}
+                            {% for cart in carts %}
+                            <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                    <td class="cart__image-wrapper cart-flex-item">
+                                        <a href="#"><img class="cart__image" src="{{ cart.product_variant.product.main_image.image.url }}" alt="{{ cart.product_variant.product.title }}"></a>
+                                    </td>
+                                    <td class="cart__meta small--text-left cart-flex-item">
+                                        <div class="list-view-item__title">
+                                            <a href="#">{{ cart.product_variant.product.title }}</a>
+                                        </div>
+                                        
+                                        <div class="cart__meta-text">
+                                            Цвет: {{ cart.product_variant.color }}<br>Размер: {{ cart.product_variant.size }}<br>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price-wrapper cart-flex-item">
+                                        <span class="money">{{ cart.product_variant.sell_price }} рублей</span>
+                                    </td>
+                                    <td class="cart__update-wrapper cart-flex-item text-right">
+                                        <div class="cart__qty text-center">
+                                            <div class="qtyField">
+                                              <!-- Кнопка уменьшения количества -->
+                                    <button type="button" style="height: 41px" class="qtyBtn minus" data-cart-change-url="{% url 'cart:cart_change' %}" data-cart-id="{{ cart.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa anm anm-minus-r" aria-hidden="true"></i>
+                                    </button>
+
+                                    <!-- Поле для ввода количества -->
+                                                <input type="number" style="width: 42px; padding:10px 6px; height:42px; border-radius:0; float: left;"
+                                           id="form1" name="quantity" value="{{ cart.quantity }}" class="product-form__input"
+                                            data-available-stock="{{ cart.product_variant.stock }}" min="1" max="{{ cart.product_variant.stock }}">
+
+                                    <!-- Кнопка увеличения количества -->
+                                    <button type="button" style="height: 41px" class="qtyBtn plus" data-cart-change-url="{% url 'cart:cart_change' %}" data-cart-id="{{ cart.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa anm anm-plus-r" aria-hidden="true"></i>
+                                    </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right small--hide cart-price">
+                                        <div><span class="money money-js" data-price="{{ cart.product_variant.sell_price }}">{{ cart.products_price }}</span> рублей</div>
+                                    </td>
+                                    <td class="text-center small--hide">
+                                    <a href="{% url 'cart:cart_remove' %}" data-cart-id="{{ cart.id }}" class="btn btn--secondary cart__remove" title="Удалить товар">
+                                        <i class="icon icon anm anm-times-l"></i>
+                                    </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                    		<tfoot>
+
+                                <tr>
+                                    <td colspan="3" class="text-left"><a href="{% url 'shop:products_list' %}" class="btn btn-secondary btn--small cart-continue">Продолжить покупки</a></td>
+                                    <td colspan="3" class="text-right">
+                                    	<button type="submit" href="{% url 'user:user_cart_page' %}" name="update" class="btn btn-secondary btn--small cart-continue ml-2">Обновить корзину</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                    </table> 
+                    </form>                   
+               	</div>
+                
+                
+                <div class="container mt-4">
+                    <div class="row">
+                    	<div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                        	<h5>Промокод</h5>
+                            <form action="#" method="post">
+                            	<div class="form-group">
+                                    <label for="address_zip">Введите свой промокод, если он у вас есть.</label>
+                                    <input type="text" name="coupon">
+                                </div>
+                                <div class="actionRow">
+                                    <div><input type="button" class="btn btn-secondary btn--small" value="Apply Coupon"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                        	<h5>Рассчитайте стоимость доставки</h5>
+							<form action="#" method="post">
+                                <div class="form-group">
+                                    <label for="address_country">Страна</label>
+                                    <select id="address_country" name="address[country]" data-default="United States"><option value="Russia" data-provinces="[]">Российская Федерация</option>
+                                        <option value="---" data-provinces="[]">---</option>
+                                        <option value="Armenia" data-provinces="[]">Республика Армения</option>
+                                        <option value="Azerbaijan" data-provinces="[]">Азербайджанская Республика</option>
+                                        <option value="Belarus" data-provinces="[]">Республика Беларусь</option>
+                                    </select>
+                                </div>
+                                   <div class="form-group">
+                                    <label for="full_address">Адрес:</label>
+                                    <input type="text" id="address_full" name="address[full]" required placeholder="г. Москва, Гагаринский переулок, д. 3, кв. 333">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address_zip">Почтовый индекс</label>
+                                    <input type="text" id="address_zip" name="address[zip]" placeholder="119034">
+                                </div>
+    
+                                <div class="actionRow">
+                                    <div><input type="button" class="btn btn-secondary btn--small" value="Рассчитать доставку"></div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                            <div class="solid-border">	
+                              <div class="row border-bottom pb-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Всего</span>
+                                <span class="col-12 col-sm-6 text-right"><span class="money" id="total-price">{{ carts.total_price }}</span> рублей</span>
+                              </div>
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Доставка</span>
+                                <span class="col-12 col-sm-6 text-right">Бесплатная доставка</span>
+                              </div>
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Общая сумма</strong></span>
+                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" id="total-price-all">{{ carts.total_price }}</span> рублей</span>
+                              </div>
+                              <div class="cart__shipping">Стоимость доставки рассчитывается при оформлении заказа.</div>
+                              <p class="cart_tearm">
+                                <label>
+                                  <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                                  Я согласен с правилами и условиями
+								</label>
+                              </p>
+                              <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" 
+                              onclick="window.location.href='{% url 'order:create_order' %}';"  value="Перейти к оформлению заказа">
+                              <div class="paymnet-img"><img src="{% static "images/payment-img.jpg" %}" alt="Payment"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!--End Body Content-->

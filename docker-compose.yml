@@ -1,0 +1,83 @@
+services:
+
+  pg:
+    image: postgres
+    container_name: postgres_test
+    environment:
+      POSTGRES_DB: clothes-shop
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    container_name: redis_test
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    depends_on:
+      - pg
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery
+    command: celery -A djangoProject_all worker --loglevel=info --logfile=logs/celery.log
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  flower:
+    build:
+     context: .
+     dockerfile: Dockerfile
+    container_name: flower
+    volumes:
+      - .:/app
+    command: celery -A djangoProject_all flower --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - celery
+    env_file:
+      - .env
+
+  web:
+      build:
+        context: .
+      container_name: web
+      command: gunicorn djangoProject_all.wsgi:application --bind 0.0.0.0:8000 --workers 3
+      volumes:
+        - .:/app
+      restart: on-failure
+      env_file:
+        - .env
+      ports:
+        - "8000:8000"
+      depends_on:
+        - pg
+        - redis
+        - celery
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/app/staticfiles
+      - ./media:/app/media
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+volumes:
+  static_volumes:
+  media_volumes:

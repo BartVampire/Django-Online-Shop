@@ -40,7 +40,7 @@
    - [Docker Compose](https://docs.docker.com/compose/)
 2. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com/ваш-аккаунт/ваш-репозиторий.git
+   git clone https://github.com/BartVampire/Django-Online-Shop.git
 
 ## ⚙️ Настройка окружения
 ### Создайте файл .env и добавьте следующие переменные:
