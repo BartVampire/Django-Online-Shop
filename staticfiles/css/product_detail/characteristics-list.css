@@ -1,0 +1,32 @@
+.characteristics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff; /* Белый фон */
+    border: 1px solid #e0e0e0; /* Легкие серые рамки вокруг таблицы */
+}
+
+.characteristics-table tr {
+    border-bottom: 1px solid #e0e0e0; /* Линия между строками */
+}
+
+.characteristics-table tr:last-child {
+    border-bottom: none; /* Убираем последнюю линию */
+}
+
+.characteristics-table td {
+    padding: 12px 15px; /* Увеличенные отступы для удобства чтения */
+}
+
+.characteristic-name {
+    font-weight: bold;
+    color: #666;
+    width: 50%;
+}
+
+.characteristic-value {
+    color: #333;
+    text-align: left;
+    font-weight: bold;
+}
+

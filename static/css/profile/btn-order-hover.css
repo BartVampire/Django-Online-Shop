@@ -1,0 +1,11 @@
+.btn-order-hover {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-order-hover:hover {
+  transform: scale(1.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
